@@ -17,7 +17,7 @@ namespace BSSceneToHotKey
                     System.IO.Directory.CreateDirectory(directry);
 
                 Type type = t.GetType();
-                string fileName = type.Name + ".xml";
+                string fileName = directry + "\\" + type.Name + ".xml";
 
                 System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(type);
                 System.IO.FileStream fs = new System.IO.FileStream(fileName, System.IO.FileMode.Create);
@@ -40,7 +40,7 @@ namespace BSSceneToHotKey
                     return default(T);
 
                 Type type = t.GetType();
-                string fileName = type.Name + ".xml";
+                string fileName = directry + "\\" + type.Name + ".xml";
 
                 System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(type);
                 System.IO.FileStream fs = new System.IO.FileStream(fileName, System.IO.FileMode.Open);

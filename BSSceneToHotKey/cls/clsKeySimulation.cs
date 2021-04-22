@@ -23,11 +23,11 @@ namespace BSSceneToHotKey
             foreach (byte pi in keys)
             {
 
-                    // キーの押し下げをシミュレートする。
-                    keybd_event(pi, 0, 0, (UIntPtr)0);
+                // キーの押し下げをシミュレートする。
+                keybd_event(pi, 0, 0, (UIntPtr)0);
             }
 
-            Thread.Sleep(10);
+            Thread.Sleep(1000);
 
             //キーアップ
             foreach (byte pi in keys)
@@ -36,6 +36,5 @@ namespace BSSceneToHotKey
                 keybd_event(pi, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
             }
         }
-
     }
 }

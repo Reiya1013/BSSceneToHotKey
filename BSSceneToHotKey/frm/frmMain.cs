@@ -24,6 +24,14 @@ namespace BSSceneToHotKey
         public Form1()
         {
             InitializeComponent();
+
+            clsJsonEventObject test = new clsJsonEventObject();
+            string output = "";
+            var deserialized = Newtonsoft.Json.JsonConvert.DeserializeObject<clsJsonEventObject>(output);
+
+
+
+
             Init();
         }
 
@@ -33,6 +41,7 @@ namespace BSSceneToHotKey
         private void Init()
         {
             parameter = parameter.XmlLoad(ParamDirectry);
+            if (parameter == null) parameter = new clsParameter();
 
             foreach (Keys val in typeof(Keys).GetEnumValues())
             {
@@ -51,10 +60,8 @@ namespace BSSceneToHotKey
             SetKey(parameter.End, chkEndAlt, chkEndCtrl, chkEndShift, cmbEndKeys);
             txtClientIpAddress.Text =  parameter.ClientIPAddress ;
             nudPort.Value = parameter.ClientPort;
-            txtGameMessage.Text = parameter.GameMessage;
-            txtMenuMessage.Text = parameter.MenuMessage;
-            txtStartMessage.Text = parameter.StartMessage;
-            txtEndMessage.Text = parameter.EndMessage;
+            nudStartTime.Value = parameter.StartTime;
+            nudEndTime.Value = parameter.EndTime;
 
 
             ws.ClientIPAddress = parameter.ClientIPAddress;
@@ -64,8 +71,8 @@ namespace BSSceneToHotKey
             //Webソケットのメッセージ受信イベントを紐づける
             ws.MessageReturn += new clsWebSocket.MessageEventHandler(this.MessageReturn);
 
-            //サーバー受信待機開始
-            Task.Run(ws.WSServer);
+            //クライアント接続開始
+            Task.Run(ws.WSClient);
         }
 
         /// <summary>
@@ -73,19 +80,34 @@ namespace BSSceneToHotKey
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private  void MessageReturn(object sender, MessageEventArgs e)
+        private void MessageReturn(object sender, MessageEventArgs e)
         {
-            if (e.Message == parameter.GameMessage)
-                key.sendKeystroke(parameter.Game);
+            Console.WriteLine(e.Event.Event);
+            if (e.Event.Event == "songStart")
+                Task.Run(StartAction);
 
-            else if (e.Message == parameter.MenuMessage)
-                key.sendKeystroke(parameter.Menu);
+            else if (e.Event.Event == "menu")
+                Task.Run(EndAction);
+        }
 
-            else if (e.Message == parameter.StartMessage)
+        private async void StartAction()
+        {
+            if (parameter.StartTime != 0)
+            {
                 key.sendKeystroke(parameter.Start);
+                await Task.Delay(parameter.StartTime * 1000);
+            }
+            key.sendKeystroke(parameter.Game);
+        }
 
-            else if (e.Message == parameter.EndMessage)
+        private async void EndAction()
+        {
+            if (parameter.EndTime != 0)
+            {
                 key.sendKeystroke(parameter.End);
+                await Task.Delay(parameter.StartTime * 1000);
+            }
+            key.sendKeystroke(parameter.Menu);
         }
 
         /// <summary>
@@ -216,7 +238,7 @@ namespace BSSceneToHotKey
                 vs.Add((byte)Keys.ControlKey);
 
             if (Shift.Checked)
-                vs.Add((byte)Keys.ControlKey);
+                vs.Add((byte)Keys.ShiftKey);
 
             if (key != string.Empty)
             {
@@ -244,10 +266,8 @@ namespace BSSceneToHotKey
 
         private void btnSetMessage_Click(object sender, EventArgs e)
         {
-            parameter.GameMessage = txtGameMessage.Text;
-            parameter.MenuMessage = txtMenuMessage.Text;
-            parameter.StartMessage = txtStartMessage.Text;
-            parameter.EndMessage = txtEndMessage.Text;
+            parameter.StartTime = (int)nudStartTime.Value;
+            parameter.EndTime = (int)nudEndTime.Value;
 
 
             parameter.XmlSave(ParamDirectry);
