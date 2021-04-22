@@ -68,11 +68,19 @@ namespace BSSceneToHotKey
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkShift = new System.Windows.Forms.CheckBox();
+            this.chkAlt = new System.Windows.Forms.CheckBox();
+            this.chkCtrl = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cmbKey = new System.Windows.Forms.ComboBox();
+            this.btnPush = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStartTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEndTime)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -491,11 +499,92 @@ namespace BSSceneToHotKey
             this.label10.TabIndex = 39;
             this.label10.Text = "秒";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chkShift);
+            this.groupBox3.Controls.Add(this.btnPush);
+            this.groupBox3.Controls.Add(this.chkAlt);
+            this.groupBox3.Controls.Add(this.cmbKey);
+            this.groupBox3.Controls.Add(this.chkCtrl);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Location = new System.Drawing.Point(436, 54);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(241, 166);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "キー登録用シミュレーション";
+            // 
+            // chkShift
+            // 
+            this.chkShift.AutoSize = true;
+            this.chkShift.Location = new System.Drawing.Point(177, 47);
+            this.chkShift.Name = "chkShift";
+            this.chkShift.Size = new System.Drawing.Size(48, 16);
+            this.chkShift.TabIndex = 16;
+            this.chkShift.Text = "Shift";
+            this.chkShift.UseVisualStyleBackColor = true;
+            this.chkShift.CheckedChanged += new System.EventHandler(this.chkShift_CheckedChanged);
+            // 
+            // chkAlt
+            // 
+            this.chkAlt.AutoSize = true;
+            this.chkAlt.Location = new System.Drawing.Point(132, 47);
+            this.chkAlt.Name = "chkAlt";
+            this.chkAlt.Size = new System.Drawing.Size(39, 16);
+            this.chkAlt.TabIndex = 15;
+            this.chkAlt.Text = "Alt";
+            this.chkAlt.UseVisualStyleBackColor = true;
+            this.chkAlt.CheckedChanged += new System.EventHandler(this.chkAlt_CheckedChanged);
+            // 
+            // chkCtrl
+            // 
+            this.chkCtrl.AutoSize = true;
+            this.chkCtrl.Location = new System.Drawing.Point(83, 47);
+            this.chkCtrl.Name = "chkCtrl";
+            this.chkCtrl.Size = new System.Drawing.Size(43, 16);
+            this.chkCtrl.TabIndex = 14;
+            this.chkCtrl.Text = "Ctrl";
+            this.chkCtrl.UseVisualStyleBackColor = true;
+            this.chkCtrl.CheckedChanged += new System.EventHandler(this.chkCtrl_CheckedChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(81, 25);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(49, 12);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "キー設定";
+            // 
+            // cmbKey
+            // 
+            this.cmbKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbKey.FormattingEnabled = true;
+            this.cmbKey.Location = new System.Drawing.Point(136, 21);
+            this.cmbKey.Name = "cmbKey";
+            this.cmbKey.Size = new System.Drawing.Size(99, 20);
+            this.cmbKey.TabIndex = 12;
+            this.cmbKey.SelectedIndexChanged += new System.EventHandler(this.cmbKey_SelectedIndexChanged);
+            // 
+            // btnPush
+            // 
+            this.btnPush.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPush.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnPush.Location = new System.Drawing.Point(6, 74);
+            this.btnPush.Name = "btnPush";
+            this.btnPush.Size = new System.Drawing.Size(229, 86);
+            this.btnPush.TabIndex = 11;
+            this.btnPush.UseVisualStyleBackColor = true;
+            this.btnPush.Click += new System.EventHandler(this.btnPush_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 315);
+            this.ClientSize = new System.Drawing.Size(695, 318);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.nudPort);
             this.Controls.Add(this.groupBox1);
@@ -511,6 +600,8 @@ namespace BSSceneToHotKey
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStartTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEndTime)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -557,6 +648,13 @@ namespace BSSceneToHotKey
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox3;
+        internal System.Windows.Forms.CheckBox chkShift;
+        internal System.Windows.Forms.Button btnPush;
+        internal System.Windows.Forms.CheckBox chkAlt;
+        internal System.Windows.Forms.ComboBox cmbKey;
+        internal System.Windows.Forms.CheckBox chkCtrl;
+        internal System.Windows.Forms.Label label11;
     }
 }
 
